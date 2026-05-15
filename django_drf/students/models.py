@@ -11,3 +11,4 @@ class Students(models.Model):
 
     def __str__(self):
      return self.name
+#get means data lana without changing koi validation na krna whether post means kai data mai changes kr kai dikhana yani database ja kr actual changes show krwana 
