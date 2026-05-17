@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django_filters',
     #Third Party
     'rest_framework',
+    'rest_framework_simplejwt',
     #local Apps
     'students',
 ]
@@ -122,6 +123,9 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES':[
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 2,
 }

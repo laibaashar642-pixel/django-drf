@@ -7,11 +7,12 @@ from rest_framework.response import Response
 from rest_framework import status,viewsets,filters
 from .models import Students
 from .serializers import StudentSerializer
-
+from rest_framework.permissions import IsAuthenticated
 #viewsets jis mai hamay automatically sara code mil jata hai put patch delte kai liye
 class StudentViewSet(viewsets.ModelViewSet):
     queryset=Students.objects.all()
     serializer_class=StudentSerializer
+    permission_classes=[IsAuthenticated]
 
 filter_backends=[DjangoFilterBackend,filters.SearchFilter]
 filterset_fields=['course','marks']
