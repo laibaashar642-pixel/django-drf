@@ -5,20 +5,33 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status,viewsets,filters
+from rest_framework.permissions import IsAuthenticated,AllowAny
+from .serializers import StudentSerializer,RegisterSerializer
 from .models import Students
-from .serializers import StudentSerializer
-from rest_framework.permissions import IsAuthenticated
+
+
 #viewsets jis mai hamay automatically sara code mil jata hai put patch delte kai liye
 class StudentViewSet(viewsets.ModelViewSet):
     queryset=Students.objects.all()
     serializer_class=StudentSerializer
     permission_classes=[IsAuthenticated]
 
-filter_backends=[DjangoFilterBackend,filters.SearchFilter]
-filterset_fields=['course','marks']
-search_fields=['name','email','course']
-ordering_fields=['marks','created_at']
-
+    filter_backends=[DjangoFilterBackend,filters.SearchFilter]
+    filterset_fields=['course','marks']
+    search_fields=['name','email','course']
+    ordering_fields=['marks','created_at']
+class RegisterView(APIView):
+    permission_classes=[AllowAny]
+    def post(self,request):
+        serializer=RegisterSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(
+                {'messege':'Account bn gya'},
+                status=status.HTTP_201_CREATED
+            )
+        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+#JWT means Json Web Token 
 #Three methods there are pagination ,filtering ,searching ,pagination means kai 
 # agr 1000 data sets hai tu wo aik baar nai diye ja skty with the sets of 10 students 
 # record diye jaty hai taky server pr zyada load na ho aur filtering means
