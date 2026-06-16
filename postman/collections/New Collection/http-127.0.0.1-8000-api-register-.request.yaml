@@ -1,0 +1,20 @@
+$kind: http-request
+name: http://127.0.0.1:8000/api/register/
+url: http://127.0.0.1:8000/api/register/
+method: GET
+body:
+  type: json
+  content: "\r
+
+    {\r
+
+    \    \"username\":\"Huma\",\r
+
+    \    \"email\": \"humakhan@gmail.com\",\r
+
+    \    \"password\": \"huma923\"\r
+
+    }"
+auth:
+  type: noauth
+order: 1780072001215
